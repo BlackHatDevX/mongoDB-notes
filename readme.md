@@ -62,5 +62,84 @@ if collection contains data of 100 users then data of single user is said as Doc
     
   </li>  
   </ol>
-<h1>CRUD in mongodb</h1>
+  on the view page import the above created usermodel
   
+    const userModel = require('./users.js')
+    
+
+
+<h1>CRUD in mongodb</h1>
+<h4>
+  CREATE
+</h4>
+
+    router.get('/create/:user',async (req,res)=>{
+      const newUser = await userModel.create({
+          username:req.params.user,
+          name:'uwuwuwuw',
+          age:20
+        })
+        res.send(newUser);
+      })
+
+  <h4>READ</h4>
+  
+        router.get("/allusers",async (req,res)=>{
+          const allUsers = await userModel.find()
+          res.send(allUsers)
+        })
+
+  <h4>DELETE</h4>
+
+    router.get("/deleteuser/:user",async(req,res)=>{
+      let deletedUser = await userModel.findOneAndDelete({username:req.params.user})
+      if (deletedUser != null){
+        res.send(deletedUser)
+      } else {
+        res.send(`no user with the username ${req.params.user} found in database`)
+      }
+    })
+
+<h4>UPDATE</h4>
+
+    ---------------
+
+<h1>SESSION</h1>
+<ol>
+  <li>get the express session 
+    
+      npm i express-session
+  </li>
+  <li>require it in main app.js
+  
+      var session = require('express-session')
+  </li>
+  <li>setup the session settings
+  
+      app.use(session({
+        resave:false,
+        saveUninitialized:false,
+        secret:"jashgro"
+      }))
+  </li>
+  <li>In index.js set ban settings in 2 steps
+    <ul>
+  <li>
+    
+        router.get("/banme",(req,res)=>{
+          req.session.ban = true
+          res.send("user banned")
+        })
+  </li>
+  <li>
+    
+    router.use((req,res,next)=>{
+      if (req.session.ban == true){
+        res.send("404 banned user")
+      }
+      else(next())
+    })
+  </li>
+    </ul>>
+  </li>
+</ol>
