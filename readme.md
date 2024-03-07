@@ -114,7 +114,7 @@ if collection contains data of 100 users then data of single user is said as Doc
   
       var session = require('express-session')
   </li>
-  <li>setup the session settings
+  <li>setup the session settings just after 'const app = express()'
   
       app.use(session({
         resave:false,
@@ -140,6 +140,6 @@ if collection contains data of 100 users then data of single user is said as Doc
       else(next())
     })
   </li>
-    </ul>>
+    </ul>
   </li>
 </ol>
